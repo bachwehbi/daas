@@ -2,10 +2,10 @@
  *  - validate query parameters
  */
 
-var restify = require('restify'),
-    server = restify.createServer()
+var express = require('express'),
+    app = express()
 
-server.use(restify.queryParser())
+//server.use(restify.queryParser())
 
 // Number of sides, default is 6 
 var sides = [4, 6, 8, 10, 12, 20, 30]
@@ -19,10 +19,10 @@ function roll (s, n) {
   return retval
 }
 
-server.get('/roll', function respond (req, res, next) {
-  var s = req.params.s || 6 //number of sides
-  var n = req.params.n || 3 //number of dice
-  var r = req.params.r || 1 //number of rolls
+app.get('/roll', function (req, res, next) {
+  var s = req.query.s || 6 //number of sides
+  var n = req.query.n || 3 //number of dice
+  var r = req.query.r || 1 //number of rolls
 
   var retval = []
   for(var i = 0; i < r; i++) {
@@ -33,6 +33,8 @@ server.get('/roll', function respond (req, res, next) {
   next()
 })
 
-server.listen(80, function() {
-  console.log('%s listening at %s', server.name, server.url)
-})
+var server = app.listen(80, function () {
+  var host = server.address().address
+  var port = server.address().port
+  console.log('Example app listening at http://%s:%s', host, port)
+});

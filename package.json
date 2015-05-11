@@ -9,7 +9,7 @@
     "url": "https://github.com/bachwehbi/daas.git"
   },
   "dependencies": {
-    "restify": "*"
+    "express": "*"
   },
   "license": "MIT"
 }
